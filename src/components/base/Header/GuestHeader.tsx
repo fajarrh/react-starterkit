@@ -1,22 +1,13 @@
 import React from "react";
 import { useApp } from "@contexts/AppContext";
-import { useAuth } from "@contexts/AuthContext";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
-import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-import Dropdown from "../Dropdown/Dropdown";
-import Avatar from "@mui/material/Avatar";
-import Fade from "@mui/material/Fade";
-import  Typography  from "@mui/material/Typography";
 
 const MenuIcon = React.lazy(() => import("@mui/icons-material/Menu"));
-const NotificationsNoneOutlinedIcon = React.lazy(
-  () => import("@mui/icons-material/NotificationsNoneOutlined")
-);
 
 export interface AppBarProps extends MuiAppBarProps {
   open?: boolean;

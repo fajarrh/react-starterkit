@@ -11,7 +11,7 @@ import { styled } from "@mui/material/styles";
 import Dropdown from "../Dropdown/Dropdown";
 import Avatar from "@mui/material/Avatar";
 import Fade from "@mui/material/Fade";
-import { postLogout } from "@services/authService";
+import { postLogout } from "@services/auth.service";
 import { useNavigate } from "react-router";
 
 const MenuIcon = React.lazy(() => import("@mui/icons-material/Menu"));
@@ -102,20 +102,6 @@ const Header = () => {
           </React.Suspense>
         </IconButton>
 
-        <ListItemText
-          primary={auth.user?.agent?.districtName ?? "Loket tidak dipilih"}
-          slotProps={{
-            primary: {
-              variant: "subtitle2",
-            },
-          }}
-          sx={{
-            m: 0,
-            ...(app.trigger.open && { ml: 20 }),
-            transition: "margin-left 0.3s ease",
-          }}
-        />
-
         <Stack flexGrow={1} direction={"row"} justifyContent={"flex-end"}>
           <div className="box">
             <IconButton size="small">
@@ -168,13 +154,10 @@ const Header = () => {
                 {
                   text: "Profil",
                 },
-                {
-                  text: "Pilih Loket",
-                  onClick: app.dialogAgent.openDialog,
-                },
+
                 {
                   text: "Logout",
-                  onClick: handlLogout
+                  onClick: handlLogout,
                 },
               ]}
             />

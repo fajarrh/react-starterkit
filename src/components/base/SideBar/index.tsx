@@ -38,21 +38,6 @@ const DashboardIcon = React.lazy(() => import("@mui/icons-material/Dashboard"));
 
 const ExpandMore = React.lazy(() => import("@mui/icons-material/ExpandMore"));
 
-const SettingsOutlinedIcon = React.lazy(
-  () => import("@mui/icons-material/SettingsOutlined")
-);
-const AddShoppingCartOutlinedIcon = React.lazy(
-  () => import("@mui/icons-material/AddShoppingCartOutlined")
-);
-
-const LocalShippingOutlinedIcon = React.lazy(
-  () => import("@mui/icons-material/LocalShippingOutlined")
-);
-
-const MapOutlinedIcon = React.lazy(
-  () => import("@mui/icons-material/MapOutlined")
-);
-
 const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
   "& .MuiDrawer-paper": {
     backgroundColor: "#F4F4F4",
@@ -88,30 +73,6 @@ const ListItemButton = styled(MUIListItemButton)(({}) => ({
 
 const menu: SiderBarMenu = [
   { path: "/", key: "dashboard", name: "Dashboard", icon: DashboardIcon },
-  {
-    path: "order",
-    key: "order",
-    name: "Pemesanan",
-    icon: AddShoppingCartOutlinedIcon,
-  },
-  {
-    path: "package",
-    key: "package",
-    name: "Paket",
-    icon: LocalShippingOutlinedIcon,
-  },
-  {
-    path: "trip",
-    key: "trip",
-    name: "Perjalanan",
-    icon: MapOutlinedIcon,
-  },
-  {
-    path: "setting",
-    key: "setting",
-    name: "Setting",
-    icon: SettingsOutlinedIcon,
-  },
 ];
 
 const SideBar = (props) => {
