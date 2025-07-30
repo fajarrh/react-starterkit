@@ -38,9 +38,6 @@ const RegisterPage = () => {
       email: "",
       password: "",
       name: "",
-      phoneNumber: "",
-      companyName: "",
-      companyPhone: "",
     },
   });
 
@@ -51,14 +48,11 @@ const RegisterPage = () => {
         email: y.email().nonempty(),
         password: y.string().nonempty(),
         name: y.string().nonempty(),
-        phoneNumber: y.string().nonempty(),
-        companyName: y.string().nonempty(),
-        companyPhone: y.string().nonempty(),
       }),
   });
 
-  const handleSubmit = async () => {
-    const valid = await validation.validated();
+  const handleSubmit = () => {
+    const valid = validation.validated();
     if (valid) {
       form.send({
         service: postRegister,
@@ -99,12 +93,12 @@ const RegisterPage = () => {
       }}
     >
       <ListItemText
-        primary="Mulai Digitalisasi Manajemen Travel Anda"
-        secondary="Daftarkan travel Anda ke platform Lintasku dan kelola rute, jadwal, armada, dan staf dengan lebih mudah dan terstruktur."
+        primary="Start App"
+        secondary="Start App"
         slotProps={{
           primary: {
             variant: "subtitle1",
-            fontWeight:500
+            fontWeight: 500,
           },
           secondary: {
             variant: "body2",
@@ -144,19 +138,6 @@ const RegisterPage = () => {
         onBlur={() => validation.validateAt("email")}
       />
 
-      <TextField
-        name="phoneNumber"
-        label="Kontak"
-        placeholder="Masukkan nomor kontak"
-        variant="standard"
-        slotProps={{ inputLabel: { shrink: true } }}
-        value={form.value("phoneNumber", "")}
-        onChange={(e) => form.setData({ phoneNumber: e.target.value })}
-        error={validation.error("phoneNumber")}
-        helperText={validation.message("phoneNumber")}
-        onBlur={() => validation.validateAt("phoneNumber")}
-      />
-
       <React.Suspense fallback={<Loading />}>
         <InputPassword
           margin="normal"
@@ -181,44 +162,6 @@ const RegisterPage = () => {
           }}
         />
       </React.Suspense>
-
-      <ListItemText
-        primary="Informasi Perusahaan Travel"
-        secondary="Silakan isi nama dan kontak perusahaan travel Anda untuk keperluan verifikasi dan keperluan administrasi."
-        slotProps={{
-          primary: {
-            variant: "subtitle2",
-          },
-          secondary: {
-            variant: "body2",
-          },
-        }}
-      />
-
-       <TextField
-        label="Nama Travel"
-        placeholder="Masukkan nama Travel anda"
-        variant="standard"
-        slotProps={{ inputLabel: { shrink: true } }}
-        value={form.value("companyName", "")}
-        onChange={(e) => form.setData({ companyName: e.target.value })}
-        error={validation.error("companyName")}
-        helperText={validation.message("companyName")}
-        onBlur={() => validation.validateAt("companyName")}
-      />
-
-      <TextField
-        label="Nomor Kontak"
-        placeholder="Masukkan nomor kontak"
-        variant="standard"
-        slotProps={{ inputLabel: { shrink: true } }}
-        value={form.value("companyPhone", "")}
-        onChange={(e) => form.setData({ companyPhone: e.target.value })}
-        error={validation.error("companyPhone")}
-        helperText={validation.message("companyPhone")}
-        onBlur={() => validation.validateAt("companyPhone")}
-      />
-
 
       <div>
         <Button
