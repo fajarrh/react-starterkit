@@ -2,32 +2,6 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 
 🧩 frgen – Form Generator CLI
 
@@ -47,7 +21,7 @@ export default {
 
 Gunakan langsung dengan `npx`:
 
-npx regen <action> [--file=path/to/schema.json] [--mui=mui]
+  npx regen <action> [--file=path/to/schema.json] [--mui=mui]
 
 📌 Parameter
 
@@ -65,25 +39,28 @@ npx regen <action> [--file=path/to/schema.json] [--mui=mui]
 
 Generate otomatis:
 
-- `Form` (Create, Update, View)
-- `IndexPage`
-- `Service API`
-- `Validation Zod`
-- `TypeScript types`
+- Form (Create, Update, View)
+- IndexPage
+- Service API
+- Validation Zod
+- TypeScript types
 
-npx regen make:page
+Contoh:
+  npx regen make:page
 
 🧪 `make:dummy`
 
 Generate file dummy untuk masing-masing entitas:
 
-npx regen make:dummy
+Contoh:
+  npx regen make:dummy
 
 🧭 `make:route`
 
 Generate file route untuk semua entitas:
 
-npx regen make:route
+Contoh:
+  npx regen make:route
 
 ---
 
@@ -110,18 +87,38 @@ File: `json-schema.json`
 💡 Contoh Penggunaan
 
 # Generate semua page dari default schema
-npx regen make:page
+  npx regen make:page
 
 # Generate dummy dari file custom
-npx regen make:dummy --file=./schemas/product.schema.json
+  npx regen make:dummy --file=./schemas/product.schema.json
 
 # Generate routes
-npx regen make:route
+  npx regen make:route
 
 ---
 
-⚠️ Error Umum
 
-- ❌ `action undefined.` → Lupa memberikan nama aksi
-- ❌ `Unknown action` → Aksi yang dimasukkan salah
-- ❌ `ERROR: ENOENT` → File JSON Schema tidak ditemukan
+---
+
+🔄 Konversi Prisma ke JSON Schema
+
+Jika kamu menggunakan Prisma, kamu bisa convert Prisma Schema ke JSON Schema secara otomatis menggunakan:
+
+🔗 https://www.npmjs.com/package/prisma-json-schema-generator
+
+Langkah:
+1. Install generator:
+   npm install -D prisma-json-schema-generator
+
+2. Tambahkan ke `schema.prisma`:
+   generator jsonSchema {
+     provider = "prisma-json-schema-generator"
+   }
+
+3. Jalankan:
+   npx prisma generate
+
+4. File JSON Schema akan tersedia di: `prisma/json-schema/json-schema.json`
+
+5. Gunakan dengan frgen:
+   masukkan file kedalam root folder atau gunakan `--file=path-to-json-schema`
