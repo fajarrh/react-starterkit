@@ -1,0 +1,50 @@
+{
+  "name": "react-mui-starterkit",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "dev:host": "vite --host",
+    "build": "tsc && vite build --mode development",
+    "build:stage": "tsc && vite build --mode staging",
+    "build:prod": "tsc && vite build --mode production",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.1.0",
+    "@mui/lab": "^7.0.0-beta.12",
+    "@mui/material": "^7.1.0",
+    "@mui/x-date-pickers": "^8.5.1",
+    "@react-router/node": "^7.0.2",
+    "dayjs": "^1.11.11",
+    "ezhooks": "^1.4.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-draggable": "^4.4.6",
+    "react-error-boundary": "^5.0.0",
+    "react-router": "^7.0.2",
+    "react-transition-group": "^4.4.5",
+    "zod": "^4.0.10"
+  },
+  "devDependencies": {
+    "@react-router/dev": "^7.0.2",
+    "@types/node": "^20.12.12",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "frgen": "^0.3.7",
+    "json-schema-to-typescript": "^15.0.4",
+    "rollup-plugin-visualizer": "^6.0.3",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  }
+}
