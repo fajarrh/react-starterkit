@@ -72,7 +72,7 @@ const SignIn = () => {
           size={{ xs: false, sm: 4, md: 8 }}
           sx={{
             backgroundImage:
-              'url("http://localhost:8011/public/image/cover-login.png")',
+              'url("https://v5.mui.com/static/images/templates/templates-images/sign-in-side-bg.png")',
 
             backgroundColor: (t) =>
               t.palette.mode === "light"
