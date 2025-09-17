@@ -1,6 +1,12 @@
 {
   "name": "react-mui-starterkit",
   "private": true,
+  "author": {
+    "name": "fajar rizky hidayat",
+    "email": "fajarrizkyhidayat@gmail.com",
+    "url": "https://fajarrizkyhidayat.my.id"
+  },
+  "homepage": "https://github.com/fajarrh/react-mui.git",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -21,7 +27,7 @@
     "@mui/x-date-pickers": "^8.5.1",
     "@react-router/node": "^7.0.2",
     "dayjs": "^1.11.11",
-    "ezhooks": "^1.4.3",
+    "ezhooks": "^1.5.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-draggable": "^4.4.6",
