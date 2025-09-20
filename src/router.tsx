@@ -8,12 +8,10 @@ const GuestLayout = LoadComponent(
   () => import("@components/layouts/GuestLayout")
 );
 
-const NotFoundPage = LoadComponent(() => import("@pages/error/PageNotFound"));
-const SignInPage = LoadComponent(() => import("@pages/auth/LoginPage"));
-const RegisterPage = LoadComponent(() => import("@pages/auth/RegisterPage"));
-const VerificationPage = LoadComponent(
-  () => import("@pages/auth/VerificationPage")
-);
+const NotFoundPage = LoadComponent(() => import("@pages/error/notfound.page"));
+const SignInPage = LoadComponent(() => import("@pages/auth/login.page"));
+const RegisterPage = LoadComponent(() => import("@pages/auth/register.page"));
+const VerificationPage = LoadComponent(() => import("@pages/auth/verification.page"));
 
 const router = createBrowserRouter(
   [

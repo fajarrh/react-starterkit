@@ -18,7 +18,7 @@ import {
 import { TextFieldProps } from "@mui/material/TextField";
 import { FilterCellProps } from "./FilterCell";
 import FilterRow from "./FilterRow";
-import * as utils from "ezhooks/lib/utils";
+import * as utils from "ezhooks-v2/lib/utils";
 import Toolbar from "@mui/material/Toolbar";
 import LoadComponent from "../LoadComponent/LoadComponent";
 

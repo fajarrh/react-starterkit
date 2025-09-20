@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ThemeProvider from "@mui/system/ThemeProvider";
 import defaultTheme from "@themes/defaultTheme";
-import useMutation from "ezhooks/lib/useMutation";
+import useMutation from "ezhooks-v2/lib/useMutation";
 import { postLogin } from "@services/auth.service";
 import useZod from "@hooks/useZod";
 import { useAuth } from "@contexts/AuthContext";
@@ -39,7 +39,7 @@ const SignIn = () => {
   });
 
   const yup = useZod({
-    data: form.data(),
+    data: form.data,
     schema: (y) =>
       y.object({
         email: y.email(),

@@ -35,8 +35,9 @@
       "@hooks/*": ["src/hooks/*"],
       "@contexts/*": ["src/contexts/*"],
       "@themes/*": ["src/components/themes/*"],
-      "@utils/*": ["src/commons/utils/*"],
+      "@utils/*": ["src/utils/*"],
       "@services/*": ["src/services/*"],
+      "@schemas/*": ["src/schemas/*"],
       "@commons/*": ["src/commons/*"],
       "@typings/*": ["src/typings/*"],
       "@reducers/*": ["src/reducers/*"]

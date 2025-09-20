@@ -22,11 +22,6 @@ export const getMonthIDName = (index: number) => {
   return months.at(index - 1).month;
 };
 
-export const generateRandomColor = () => {
-  const hue = Math.floor(Math.random() * 360);
-  return `hsl(${hue}, 70%, 80%)`; 
-};
-
 export const deepEqual = (obj1: any, obj2: any): boolean => {
   if (obj1 === obj2) return true;
 

@@ -1,5 +1,5 @@
 export const getPagination = (
-  value: import("ezhooks").UseTablePagination
+  value: import("ezhooks-v2").UseTablePagination
 ): import("@mui/material/TablePagination").TablePaginationProps => {
   return {
     count: value.total,

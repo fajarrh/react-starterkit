@@ -27,7 +27,6 @@
     "@mui/x-date-pickers": "^8.5.1",
     "@react-router/node": "^7.0.2",
     "dayjs": "^1.11.11",
-    "ezhooks": "^1.5.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-draggable": "^4.4.6",

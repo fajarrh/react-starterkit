@@ -1,4 +1,4 @@
-import { EventSend } from "ezhooks";
+import { EventSend } from "ezhooks-v2";
 import { LoaderFunction, redirect } from "react-router";
 
 const baseUrl = import.meta.env.VITE_APP_BASE_API_URL;
@@ -40,7 +40,7 @@ export const postLogin = async (event: EventSend<any>) => {
     headers: {
       "content-type": "application/json",
     },
-    body: JSON.stringify(event.data()),
+    body: JSON.stringify(event.data),
   });
 
   return await res.json();
@@ -53,7 +53,7 @@ export const postRegister = async (event: EventSend<any>) => {
     headers: {
       "content-type": "application/json",
     },
-    body: JSON.stringify(event.data()),
+    body: JSON.stringify(event.data),
   });
 
   return res;
@@ -66,7 +66,7 @@ export const postVerificationEmail = async (event: EventSend<any>) => {
     headers: {
       "content-type": "application/json",
     },
-    body: JSON.stringify(event.data()),
+    body: JSON.stringify(event.data),
   });
 
   return res;
@@ -79,7 +79,7 @@ export const postResendCode = async (event: EventSend<any>) => {
     headers: {
       "content-type": "application/json",
     },
-    body: JSON.stringify(event.data()),
+    body: JSON.stringify(event.data),
   });
 
   return res;
@@ -93,4 +93,12 @@ export const postLogout = (event: EventSend<any>) => {
       "content-type": "application/json",
     },
   });
+};
+
+export const getOrder = async (event: EventSend<any>):Promise<number> => {
+  const res = await fetch('http://localhost:8011/order', {
+    signal: event.ctr?.signal,
+  });
+
+  return await res.json()
 };

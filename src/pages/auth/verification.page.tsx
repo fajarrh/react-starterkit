@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import useMutation from "ezhooks/lib/useMutation";
+import useMutation from "ezhooks-v2/lib/useMutation";
 import useZod from "@hooks/useZod";
 import { useLocation, useNavigate } from "react-router";
 import { postResendCode, postVerificationEmail } from "@services/auth.service";
@@ -42,7 +42,7 @@ const VerificationPage = () => {
   });
 
   const validation = useZod({
-    data: form.data(),
+    data: form.data,
     schema: (y) =>
       y.object({
         email: y.email(),

@@ -7,7 +7,7 @@ import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 import Fade from "@mui/material/Fade";
 
-import useMutation from "ezhooks/lib/useMutation";
+import useMutation from "ezhooks-v2/lib/useMutation";
 import useZod from "@hooks/useZod";
 import { postRegister } from "@services/auth.service";
 import { useNavigate } from "react-router";
@@ -42,7 +42,7 @@ const RegisterPage = () => {
   });
 
   const validation = useZod({
-    data: form.data(),
+    data: form.data,
     schema: (y) =>
       y.object({
         email: y.email().nonempty(),
