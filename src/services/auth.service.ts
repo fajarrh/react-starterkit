@@ -1,4 +1,4 @@
-import { EventSend } from "ezhooks-v2";
+import { EventSend } from "ezhooks";
 import { LoaderFunction, redirect } from "react-router";
 
 const baseUrl = import.meta.env.VITE_APP_BASE_API_URL;
@@ -33,7 +33,7 @@ export const loader: LoaderFunction = async () => {
   return resp.data;
 };
 
-export const postLogin = async (event: EventSend<any>) => {
+export const postLogin = async (event: EventSend) => {
   const res = await fetch(url.login, {
     method: "post",
     signal: event.ctr.signal,
@@ -46,7 +46,7 @@ export const postLogin = async (event: EventSend<any>) => {
   return await res.json();
 };
 
-export const postRegister = async (event: EventSend<any>) => {
+export const postRegister = async (event: EventSend) => {
   const res = await fetch(url.register, {
     method: "post",
     signal: event.ctr.signal,
@@ -59,7 +59,7 @@ export const postRegister = async (event: EventSend<any>) => {
   return res;
 };
 
-export const postVerificationEmail = async (event: EventSend<any>) => {
+export const postVerificationEmail = async (event: EventSend) => {
   const res = await fetch(url.verification, {
     method: "post",
     signal: event.ctr.signal,
@@ -72,7 +72,7 @@ export const postVerificationEmail = async (event: EventSend<any>) => {
   return res;
 };
 
-export const postResendCode = async (event: EventSend<any>) => {
+export const postResendCode = async (event: EventSend) => {
   const res = await fetch(url.resend, {
     method: "post",
     signal: event.ctr.signal,
@@ -85,7 +85,7 @@ export const postResendCode = async (event: EventSend<any>) => {
   return res;
 };
 
-export const postLogout = (event: EventSend<any>) => {
+export const postLogout = (event: EventSend) => {
   return fetch(url.logout, {
     method: "post",
     signal: event.ctr?.signal,
@@ -93,12 +93,4 @@ export const postLogout = (event: EventSend<any>) => {
       "content-type": "application/json",
     },
   });
-};
-
-export const getOrder = async (event: EventSend<any>):Promise<number> => {
-  const res = await fetch('http://localhost:8011/order', {
-    signal: event.ctr?.signal,
-  });
-
-  return await res.json()
 };

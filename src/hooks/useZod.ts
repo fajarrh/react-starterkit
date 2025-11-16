@@ -2,9 +2,7 @@ import React from "react";
 import * as z from "zod";
 
 export type UseZodProps<T> = {
-  schema:
-    | { [key: string]: (zod: typeof z) => z.ZodObject }
-    | ((zod: typeof z) => z.ZodObject);
+  schema: { [key: string]: z.ZodObject } | z.ZodObject;
   data?: T;
   option?: z.core.ParseContext<z.core.$ZodIssue>;
 };
@@ -13,15 +11,10 @@ export type UseZod<T = any> = {
   clear: () => void;
   error: (key?: {} | keyof T) => boolean;
   message: (key?: {} | keyof T) => any;
-  validated: <T>(option?: {
-    scenario?: string;
-    schema?: (zod: typeof z) => z.ZodObject;
-    data?: T;
-  }) => boolean;
+  validated: <T>(option?: { schema?: z.ZodObject; data?: T }) => boolean;
   validateAt: <T>(
     key: string,
     opt?: {
-      scenario?: string;
       data?: T;
     }
   ) => void;
@@ -54,26 +47,15 @@ const reducer = (state, action) => {
 const useZod = <T = any>(props: UseZodProps<T>): UseZod<T> => {
   const [errors, dispatch] = React.useReducer(reducer, {});
 
-  const validated = <T>(opt?: {
-    scenario?: string;
-    data?: T;
-    schema?: (zod: typeof z) => z.ZodObject;
-  }) => {
+  const validated = <T>(opt?: { data?: T; schema?: z.ZodObject }) => {
     let op = {
       schema: props.schema,
       data: props.data,
       ...opt,
     };
     dispatch({ type: "CLEAR" });
-    let schemaFn: (zod: typeof z) => z.ZodObject<any>;
 
-    if (typeof op.schema === "function") {
-      schemaFn = op.schema;
-    } else if (typeof op.schema === "object") {
-      const scenarioKey = op.scenario ?? Object.keys(op.schema)[0];
-      schemaFn = op.schema[scenarioKey];
-    }
-    const result = schemaFn(z).safeParse(op.data);
+    const result = (op.schema as z.ZodObject).safeParse(op.data);
     if (!result.success) {
       dispatch({
         type: "SET",
@@ -88,25 +70,17 @@ const useZod = <T = any>(props: UseZodProps<T>): UseZod<T> => {
   const validateAt = <T>(
     key: string,
     opt?: {
-      scenario?: string;
       data?: T;
     }
   ) => {
     let op = {
       data: props.data,
+      schema: props.schema,
       ...opt,
     };
     dispatch({ type: "CLEAR_KEY", key });
-    let schemaFn: (zod: typeof z) => z.ZodObject<any>;
 
-    if (typeof props.schema === "function") {
-      schemaFn = props.schema;
-    } else if (typeof props.schema === "object") {
-      const scenarioKey = op.scenario ?? Object.keys(props.schema)[0];
-      schemaFn = props.schema[scenarioKey];
-    }
-
-    const result = schemaFn(z).shape[key].safeParse(op.data[key]);
+    const result = op.schema.shape[key].safeParse(op.data[key]);
     if (!result.success) {
       dispatch({
         type: "SET",
