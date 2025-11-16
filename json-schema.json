@@ -14,135 +14,22 @@
           "type": "string"
         },
         "password": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "isActive": {
-          "type": [
-            "boolean",
-            "null"
-          ],
+          "type": ["boolean", "null"],
           "default": false
         },
-        "type": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "DEV",
-            "PROD"
-          ]
-        },
         "createdAt": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "format": "date-time"
         },
         "updatedAt": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "format": "date-time"
         }
       },
-      "required": [
-        "name",
-        "email"
-      ]
-    },
-    "Service": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "slug": {
-          "type": "string"
-        },
-        "description": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "providerName": {
-          "type": "string"
-        },
-        "contactNumber": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "price": {
-          "type": [
-            "number",
-            "null"
-          ],
-          "default": 0
-        },
-        "logoUrl": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "profileImage": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "category": {
-          "$ref": "#/definitions/Category"
-        },
-        "seo": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/SeoConfigs"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ServiceTags"
-          }
-        },
-        "images": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ServiceImages"
-          }
-        }
-      },
-      "required": [
-        "name",
-        "slug",
-        "providerName",
-        "updatedAt",
-        "categoryId"
-      ]
+      "required": ["name", "email"]
     },
     "Category": {
       "type": "object",
@@ -163,179 +50,9 @@
         "updatedAt": {
           "type": "string",
           "format": "date-time"
-        },
-        "parent": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Category"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "children": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Category"
-          }
-        },
-        "services": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Service"
-          }
         }
       },
-      "required": [
-        "name",
-        "slug",
-        "updatedAt"
-      ]
-    },
-    "Tags": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "slug": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "serviceTags": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ServiceTags"
-          }
-        }
-      },
-      "required": [
-        "name",
-        "slug",
-        "updatedAt"
-      ]
-    },
-    "ServiceTags": {
-      "type": "object",
-      "properties": {
-        "service": {
-          "$ref": "#/definitions/Service"
-        },
-        "tag": {
-          "$ref": "#/definitions/Tags"
-        }
-      },
-      "required": [
-        "serviceId",
-        "tagId"
-      ]
-    },
-    "ServiceImages": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "url": {
-          "type": "string"
-        },
-        "alt": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "order": {
-          "type": "integer",
-          "default": 0
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "service": {
-          "$ref": "#/definitions/Service"
-        }
-      },
-      "required": [
-        "url",
-        "updatedAt",
-        "serviceId"
-      ]
-    },
-    "SeoConfigs": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "title": {
-          "type": "string"
-        },
-        "description": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "keywords": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "ogTitle": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "ogDescription": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "ogImage": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "Service": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Service"
-          }
-        }
-      },
-      "required": [
-        "title",
-        "updatedAt"
-      ]
+      "required": ["name", "slug", "updatedAt"]
     }
   },
   "type": "object",
@@ -343,23 +60,8 @@
     "user": {
       "$ref": "#/definitions/User"
     },
-    "service": {
-      "$ref": "#/definitions/Service"
-    },
     "category": {
       "$ref": "#/definitions/Category"
-    },
-    "tags": {
-      "$ref": "#/definitions/Tags"
-    },
-    "serviceTags": {
-      "$ref": "#/definitions/ServiceTags"
-    },
-    "serviceImages": {
-      "$ref": "#/definitions/ServiceImages"
-    },
-    "seoConfigs": {
-      "$ref": "#/definitions/SeoConfigs"
     }
   }
 }
