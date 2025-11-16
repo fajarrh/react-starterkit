@@ -7,7 +7,7 @@
     "url": "https://fajarrizkyhidayat.my.id"
   },
   "homepage": "https://github.com/fajarrh/react-mui.git",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite dev",
