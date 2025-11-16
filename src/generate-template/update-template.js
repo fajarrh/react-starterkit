@@ -1,11 +1,11 @@
 /**
  * 
- * @param {*} column
+ * @param {*} properties
  * @param {*} modelName
  * @description Template for update page   
  * @returns {string} Template string
  */
 
-const updateTemplate = ({ column, modelName }) => {
+const updateTemplate = ({ properties, modelName }) => {
   return `/** Template for update of ${modelName} */`;
 };
