@@ -28,13 +28,16 @@ export default defineConfig(({ mode }) => {
         "@schemas": path.resolve(__dirname, "./src/schemas"),
         "@typings": path.resolve(__dirname, "./src/typings"),
         "@reducers": path.resolve(__dirname, "./src/reducers"),
+        "@ignored": path.resolve(__dirname, "src/generate-template"),
       },
     },
     optimizeDeps: {
       include: ["@mui/material", "@mui/icons-material"],
+      exclude: ["@ignored"],
     },
     build: {
       rollupOptions: {
+        external: ["@ignored"],
         output: {
           manualChunks: (id) => {
             if (id.includes("node_modules")) {

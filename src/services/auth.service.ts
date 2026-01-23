@@ -40,7 +40,7 @@ export const postLogin = async (event: EventSend) => {
     headers: {
       "content-type": "application/json",
     },
-    body: JSON.stringify(event.data),
+    body: JSON.stringify(event.data?.()),
   });
 
   return await res.json();
@@ -53,7 +53,7 @@ export const postRegister = async (event: EventSend) => {
     headers: {
       "content-type": "application/json",
     },
-    body: JSON.stringify(event.data),
+    body: JSON.stringify(event.data?.()),
   });
 
   return res;
@@ -66,7 +66,7 @@ export const postVerificationEmail = async (event: EventSend) => {
     headers: {
       "content-type": "application/json",
     },
-    body: JSON.stringify(event.data),
+    body: JSON.stringify(event.data?.()),
   });
 
   return res;
@@ -79,7 +79,7 @@ export const postResendCode = async (event: EventSend) => {
     headers: {
       "content-type": "application/json",
     },
-    body: JSON.stringify(event.data),
+    body: JSON.stringify(event.data?.()),
   });
 
   return res;

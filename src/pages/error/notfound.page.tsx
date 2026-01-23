@@ -4,17 +4,19 @@ import { useNavigate } from "react-router";
 const PageNotFound = () => {
   const navigate = useNavigate();
   return (
-    <div style={{ textAlign: "center", padding: "16px" }}>
-      Page not found {" "}
+    <div style={{ textAlign: "center", padding: "32px" }}>
+      Page not found
+      <br/>
       <span>
         <Link
           component="button"
           variant="body2"
+          fontWeight={700}
           onClick={() => {
             navigate(-1);
           }}
         >
-          go back.
+          Go Back
         </Link>
       </span>
     </div>

@@ -1,9 +1,3 @@
-# regen CLI Tool
-
-`regen` is a Node.js-based code generator designed to create pages, forms, routes, services, validation schemas (Zod), dummy data, and TypeScript definitions based on a JSON Schema file. It supports customizable templates and MUI components.
-
----
-
 # Converting Prisma Schema to JSON Schema
 
 If you are working with Prisma, you can automatically convert your Prisma schema into a JSON Schema using the following package:
@@ -31,196 +25,238 @@ This setup enables Prisma to generate a well-structured JSON Schema based on you
 You can then use the generated schema with the `regen` CLI to automate creation of pages, forms, services, validations, and more.
 
 
-## 📦 Installation
+# Regen
 
-You can run it directly using `npx`:
+A powerful code generator that creates pages, forms, services, and validation files from JSON Schema definitions.
 
-```bash
-npx regen <action> [options]
-```
+## Features
 
----
+- 🚀 Generate complete CRUD pages automatically
+- 📝 Create forms from JSON Schema
+- ✅ Generate validation files
+- 🔄 Create service layers
+- 🎨 Support for custom templates
+- 📊 Generate dummy data
+- 🛣️ Auto-generate routes
 
-## 🚀 Usage
-
-### Basic Command Format
-
-```bash
-npx regen <action> [options]
-```
-
----
-
-## 🛠 Available Actions
-
-### **1. `make:page`**
-Generates all pages and services for every definition inside `json-schema.json`.
-
-This includes:
-- Service file
-- Validation file
-- Form component
-- Index page
-- Create page
-- Update page
-- View page
-- Dummy data
-- TypeScript definitions
+## Installation
 
 ```bash
-npx regen make:page
+npm install regen
+# or
+yarn add regen
 ```
 
----
+## Quick Start
 
-### **2. `make:dummy`**
-Generates only dummy data based on schema.
-
-```bash
-npx regen make:dummy
-```
-
----
-
-### **3. `make:route`**
-Generates route file for all schema definitions.
-
-```bash
-npx regen make:route
-```
-
----
-
-### **4. `make:validation`**
-Generates validation files only.
-
-```bash
-npx regen make:validation
-```
-
----
-
-### **5. `make:form`**
-Generates form components only.
-
-```bash
-npx regen make:form
-```
-
----
-
-### **6. `--help`**
-Shows help message.
-
-```bash
-npx regen --help
-```
-
----
-
-## ⚙ Options
-
-### `--file=<path>`
-Specify JSON schema file.
-
-Default: `./json-schema.json`
-
-```bash
-npx regen make:page --file=./schema/user.json
-```
-
----
-
-### `--mui`
-Use MUI templates (default).
-
-```bash
-npx regen make:page --mui
-```
-
----
-
-### Custom Template Options
-
-| Option | Description |
-|--------|-------------|
-| `--index-template=<path>` | Custom index page template |
-| `--form-template=<path>` | Custom form template |
-| `--view-template=<path>` | Custom view template |
-| `--create-template=<path>` | Custom create page template |
-| `--update-template=<path>` | Custom update page template |
-| `--template=<dir>` | Directory containing all templates |
-
-Example:
-
-```bash
-npx regen make:page --template=./custom-templates
-```
-
-This expects:
-
-```
-custom-templates/
-  index-template.js
-  form-template.js
-  view-template.js
-  create-template.js
-  update-template.js
-```
-
----
-
-### `--ignore=<templates>`
-
-Comma-separated list of templates to skip.
-
-Options:
-- create
-- update
-- view
-- form
-- index
-- service
-- validation
-- dummy
-
-Example:
-
-```bash
-npx regen make:page --ignore=form,view
-```
-
----
-
-## 📂 JSON Schema Requirements
-
-Your `json-schema.json` must have:
+1. Create a `json-schema.json` file in your project root:
 
 ```json
 {
   "definitions": {
     "User": {
-      "properties": { ... },
-      "required": [ ... ]
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "age": { "type": "number" }
+      },
+      "required": ["name", "email"]
     }
   }
 }
 ```
 
-Each key inside `definitions` is treated as a module to generate.
+2. Run the generator:
 
----
-
-## 🛑 Error Handling
-
-Errors will be shown as:
-
-```
-❌ ERROR: <message>
+```bash
+npx regen make:page
 ```
 
----
+## Commands
 
-## 📜 License
+### `make:page`
 
-MIT License
+Generate all pages, forms, services, and validation files for all entities in your schema.
+
+```bash
+npx regen make:page
+```
+
+### `make:dummy`
+
+Generate dummy data for testing purposes.
+
+```bash
+npx regen make:dummy
+```
+
+### `make:route`
+
+Generate route configuration file.
+
+```bash
+npx regen make:route
+```
+
+### `make:validation`
+
+Generate validation files only.
+
+```bash
+npx regen make:validation
+```
+
+### `make:form`
+
+Generate form components only.
+
+```bash
+npx regen make:form
+```
+
+## Options
+
+### `--file=<path>`
+
+Specify a custom path to your JSON schema file.
+
+```bash
+npx regen make:page --file=./schemas/my-schema.json
+```
+
+**Default:** `./json-schema.json`
+
+### `--template=<directory>`
+
+Use custom templates from a directory. The directory should contain:
+- `index-template.js`
+- `form-template.js`
+- `view-template.js`
+- `create-template.js`
+- `update-template.js`
+
+```bash
+npx regen make:page --template=./my-templates
+```
+
+### Individual Template Options
+
+You can also specify individual templates:
+
+```bash
+npx regen make:page --index-template=./templates/custom-index.js
+npx regen make:page --form-template=./templates/custom-form.js
+npx regen make:page --view-template=./templates/custom-view.js
+npx regen make:page --create-template=./templates/custom-create.js
+npx regen make:page --update-template=./templates/custom-update.js
+```
+
+### `--ignore=<templates>`
+
+Skip generating specific files. Available options: `create`, `update`, `view`, `form`, `index`, `service`, `validation`, `dummy`
+
+```bash
+# Skip dummy data and validation
+npx regen make:page --ignore=dummy,validation
+
+# Skip all page templates, only generate services
+npx regen make:page --ignore=create,update,view,form,index
+```
+
+## Configuration File
+
+Create a `regen.config.js` file in your project root for persistent configuration:
+
+```javascript
+export default {
+  jsonSchemaFile: "./schemas/schema.json",
+  templateDir: "./templates",
+  ignoreTemplate: ["dummy", "validation"],
+  schemaImportStatement: "import { schema } from './schema'"
+};
+```
+
+### Configuration Options
+
+- **jsonSchemaFile**: Path to JSON schema file
+- **templateDir**: Directory containing template files
+- **ignoreTemplate**: Array of templates to skip
+- **schemaImportStatement**: Custom import statement for schema
+
+## Examples
+
+### Generate everything with default settings
+
+```bash
+npx regen make:page
+```
+
+### Generate with custom schema file
+
+```bash
+npx regen make:page --file=./api-schema.json
+```
+
+### Generate with custom templates
+
+```bash
+npx regen make:page --template=./custom-templates
+```
+
+### Generate without dummy data and validation
+
+```bash
+npx regen make:page --ignore=dummy,validation
+```
+
+### Generate only dummy data
+
+```bash
+npx regen make:dummy
+```
+
+### Generate only routes
+
+```bash
+npx regen make:route
+```
+
+## Generated Files
+
+When you run `make:page`, Regen generates the following structure for each entity:
+
+```
+src/
+├── pages/
+│   └── [EntityName]/
+│       ├── index.tsx          # List/Index page
+│       ├── create.tsx         # Create page
+│       ├── update.tsx         # Update page
+│       └── view.tsx           # View/Detail page
+├── components/
+│   └── forms/
+│       └── [EntityName]Form.tsx
+├── services/
+│   └── [entityName]Service.ts
+├── validation/
+│   └── [entityName]Validation.ts
+└── dummy/
+    └── [entityName]Dummy.ts
+```
+
+## Help
+
+Display help information:
+
+```bash
+npx regen --help
+```
+
+## License
+
+MIT
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.

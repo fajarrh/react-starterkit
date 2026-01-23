@@ -4,7 +4,7 @@ import TableCell, { TableCellProps } from "@mui/material/TableCell";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 import visuallyHidden from "@mui/utils/visuallyHidden";
-import * as use from "ezhooks-v2/lib/utility";
+import * as use from "@utils/array";
 
 export type IHead = Omit<TableCellProps, "sortDirection" | "id"> & {
   noWrap?: boolean;

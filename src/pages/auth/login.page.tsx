@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ThemeProvider from "@mui/system/ThemeProvider";
 import defaultTheme from "@themes/defaultTheme";
-import useMutation from "ezhooks-v2/lib/useMutation";
+import useMutation from "ezhooks/lib/useMutation";
 import { postLogin } from "@services/auth.service";
 import useZod from "@hooks/useZod";
 import { useAuth } from "@contexts/AuthContext";
@@ -18,14 +18,15 @@ import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
 import LoadComponent from "@components/base/LoadComponent/LoadComponent";
+import z from "@schemas/_schema.config";
 
 const TextField = React.lazy(() => import("@mui/material/TextField"));
 
 const LockOutlinedIcon = LoadComponent(
-  () => import("@mui/icons-material/LockOutlined")
+  () => import("@mui/icons-material/LockOutlined"),
 );
 const InputPassword = React.lazy(
-  () => import("@components/base/Input/InputPassword")
+  () => import("@components/base/Input/InputPassword"),
 );
 
 const SignIn = () => {
@@ -38,17 +39,16 @@ const SignIn = () => {
     },
   });
 
-  const yup = useZod({
+  const validation = useZod({
     data: form.data,
-    schema: (y) =>
-      y.object({
-        email: y.email(),
-        password: y.string(),
-      }),
+    schema: z.object({
+      email: z.email().nonempty(),
+      password: z.string().nonempty(),
+    }),
   });
 
   const handleSubmit = () => {
-    const valid = yup.validated();
+    const valid = validation.validated();
     if (valid) {
       form.send({
         service: postLogin,
@@ -114,11 +114,11 @@ const SignIn = () => {
                   name="email"
                   autoComplete="email"
                   autoFocus
-                  value={form.value("email")}
-                  error={yup.error("email")}
-                  helperText={yup.message("email")}
+                  defaultValue={form.value("email")}
+                  error={validation.error("email")}
+                  helperText={validation.message("email")}
                   onChange={(e) => form.setData({ email: e.target.value })}
-                  onBlur={() => yup.validateAt("email")}
+                  onBlur={() => validation.validateAt("email")}
                 />
               </React.Suspense>
 
@@ -132,11 +132,11 @@ const SignIn = () => {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  value={form.value("password")}
-                  error={yup.error("password")}
-                  helperText={yup.message("password")}
+                  defaultValue={form.value("password")}
+                  error={validation.error("password")}
+                  helperText={validation.message("password")}
                   onChange={(e) => form.setData({ password: e.target.value })}
-                  onBlur={() => yup.validateAt("password")}
+                  onBlur={() => validation.validateAt("password")}
                 />
               </React.Suspense>
 

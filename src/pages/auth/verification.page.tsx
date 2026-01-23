@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import useMutation from "ezhooks-v2/lib/useMutation";
+import useMutation from "ezhooks/lib/useMutation";
 import useZod from "@hooks/useZod";
 import { useLocation, useNavigate } from "react-router";
 import { postResendCode, postVerificationEmail } from "@services/auth.service";
@@ -12,6 +12,7 @@ import Fade from "@mui/material/Fade";
 import useParseError from "@hooks/useParseError";
 import { formatCountdown } from "@utils/string";
 import { useSnackbar } from "@contexts/SnackbarContext";
+import z from "@schemas/_schema.config";
 
 const TextField = React.lazy(() => import("@mui/material/TextField"));
 
@@ -41,13 +42,14 @@ const VerificationPage = () => {
     },
   });
 
+
+
   const validation = useZod({
     data: form.data,
-    schema: (y) =>
-      y.object({
-        email: y.email(),
-        code: y.string(),
-      }),
+    schema: z.object({
+      email: z.email(),
+      code: z.string(),
+    }),
   });
 
   const handleSubmit = async () => {
@@ -153,7 +155,7 @@ const VerificationPage = () => {
 
   React.useEffect(() => {
     if (!location.state?.email) return;
-    form.setData({ email: location.state.email });
+    form.value({ email: location.state.email });
   }, [location.state.email]);
 
   if (isSuccess) {
@@ -196,7 +198,7 @@ const VerificationPage = () => {
         variant="standard"
         slotProps={{ inputLabel: { shrink: true } }}
         value={form.value("code", "")}
-        onChange={(e) => form.setData({ code: e.target.value })}
+        onChange={(e) => form.value({ code: e.target.value })}
         error={validation.error("code")}
         helperText={validation.message("code")}
         onBlur={() => validation.validateAt("code")}

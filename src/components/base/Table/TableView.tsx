@@ -66,7 +66,7 @@ const TableView = ({
               isPending={isPending}
               valueProps={r.valueProps}
             >
-              {r.value(data)}
+              {r.value(data)  }
             </TableValue>
           ))}
         </TableBody>

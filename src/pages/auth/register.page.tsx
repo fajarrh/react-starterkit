@@ -7,11 +7,12 @@ import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 import Fade from "@mui/material/Fade";
 
-import useMutation from "ezhooks-v2/lib/useMutation";
+import useMutation from "ezhooks/lib/useMutation";
 import useZod from "@hooks/useZod";
 import { postRegister } from "@services/auth.service";
 import { useNavigate } from "react-router";
 import useParseError from "@hooks/useParseError";
+import z from "@schemas/_schema.config";
 
 const TextField = React.lazy(() => import("@mui/material/TextField"));
 
@@ -43,12 +44,11 @@ const RegisterPage = () => {
 
   const validation = useZod({
     data: form.data,
-    schema: (y) =>
-      y.object({
-        email: y.email().nonempty(),
-        password: y.string().nonempty(),
-        name: y.string().nonempty(),
-      }),
+    schema: z.object({
+      email: z.email().nonempty(),
+      password: z.string().nonempty(),
+      name: z.string().nonempty(),
+    }),
   });
 
   const handleSubmit = () => {

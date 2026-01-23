@@ -18,7 +18,7 @@ import {
 import { TextFieldProps } from "@mui/material/TextField";
 import { FilterCellProps } from "./FilterCell";
 import FilterRow from "./FilterRow";
-import * as utils from "ezhooks-v2/lib/utils";
+import * as use from "@utils/array"
 import Toolbar from "@mui/material/Toolbar";
 import LoadComponent from "../LoadComponent/LoadComponent";
 
@@ -79,7 +79,7 @@ const DataTablePage = <T=any,>({
   const cdata = React.useMemo(
     () =>
       column.map((value) =>
-        utils.omit(value, ["head", "label", "sortKey", "filter"])
+        use.omit(value, ["head", "label", "sortKey", "filter"])
       ),
     [column, data]
   );
@@ -91,7 +91,7 @@ const DataTablePage = <T=any,>({
 
   const chead = React.useMemo(
     () =>
-      column.map((value) => utils.pick(value, ["label", "sortKey", "head"])),
+      column.map((value) => use.pick(value, ["label", "sortKey", "head"])),
     [column, data]
   );
 
@@ -161,7 +161,7 @@ const DataTablePage = <T=any,>({
                   {...row}
                 >
                   <TableCell
-                    {...utils.omit(renderSmallView(_data), ["headProps"])}
+                    {...use.omit(renderSmallView(_data), ["headProps"])}
                   />
                 </TableRow>
               ) : (

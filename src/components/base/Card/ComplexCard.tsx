@@ -5,7 +5,7 @@ import CardMedia, { CardMediaProps } from "@mui/material/CardMedia";
 import CardContent, { CardContentProps } from "@mui/material/CardContent";
 import CardActions, { CardActionsProps } from "@mui/material/CardActions";
 import Avatar, { AvatarProps } from "@mui/material/Avatar";
-import use from "ezhooks-v2/lib/utils";
+import * as use from "@utils/array"
 
 export interface ComplexCardProps extends CardProps {
   avatar?: AvatarProps;

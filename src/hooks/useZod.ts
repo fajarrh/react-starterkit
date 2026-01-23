@@ -3,7 +3,7 @@ import * as z from "zod";
 
 export type UseZodProps<T> = {
   schema: { [key: string]: z.ZodObject } | z.ZodObject;
-  data?: T;
+  data?: () => T;
   option?: z.core.ParseContext<z.core.$ZodIssue>;
 };
 
@@ -16,7 +16,7 @@ export type UseZod<T = any> = {
     key: string,
     opt?: {
       data?: T;
-    }
+    },
   ) => void;
   setError: (value: Record<string, string>) => void;
 };
@@ -50,7 +50,7 @@ const useZod = <T = any>(props: UseZodProps<T>): UseZod<T> => {
   const validated = <T>(opt?: { data?: T; schema?: z.ZodObject }) => {
     let op = {
       schema: props.schema,
-      data: props.data,
+      data: props.data?.(),
       ...opt,
     };
     dispatch({ type: "CLEAR" });
@@ -60,7 +60,7 @@ const useZod = <T = any>(props: UseZodProps<T>): UseZod<T> => {
       dispatch({
         type: "SET",
         error: Object.fromEntries(
-          result.error.issues.map((v) => [v.path.join("."), v.message])
+          result.error.issues.map((v) => [v.path.join("."), v.message]),
         ),
       });
     }
@@ -71,10 +71,10 @@ const useZod = <T = any>(props: UseZodProps<T>): UseZod<T> => {
     key: string,
     opt?: {
       data?: T;
-    }
+    },
   ) => {
     let op = {
-      data: props.data,
+      data: props.data?.(),
       schema: props.schema,
       ...opt,
     };

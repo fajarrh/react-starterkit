@@ -1,16 +1,10 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import {
-  BreadcrumbsProps,
-  default as MUIBreadcrumbs,
-} from "@mui/material/Breadcrumbs";
+import { default as MUIBreadcrumbs } from "@mui/material/Breadcrumbs";
 import { Link as RLink, useLocation } from "react-router";
 import { snackCaseToWord } from "@utils/string";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Box from "@mui/material/Box";
-
-type Props = BreadcrumbsProps;
 
 const Breadcrumbs = () => {
   const location = useLocation();

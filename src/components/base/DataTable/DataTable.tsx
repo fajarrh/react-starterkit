@@ -19,7 +19,7 @@ import {
 import { TextFieldProps } from "@mui/material/TextField";
 import { FilterCellProps } from "./FilterCell";
 import FilterRow from "./FilterRow";
-import * as use from "ezhooks-v2/lib/utils";
+import * as use from "@utils/array"
 
 const TablePagination = React.lazy(
   () => import("@mui/material/TablePagination")
