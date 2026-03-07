@@ -12,12 +12,12 @@ import useZod from "@hooks/useZod";
 import { useAuth } from "@contexts/AuthContext";
 import { useNavigate } from "react-router";
 
-import Loading from "@components/base/Skeleton/Spinner";
+import Loading from "@components/ui/Skeleton/Spinner";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
-import LoadComponent from "@components/base/LoadComponent/LoadComponent";
+import LoadComponent from "@components/ui/LoadComponent/LoadComponent";
 import z from "@schemas/_schema.config";
 
 const TextField = React.lazy(() => import("@mui/material/TextField"));
@@ -26,7 +26,7 @@ const LockOutlinedIcon = LoadComponent(
   () => import("@mui/icons-material/LockOutlined"),
 );
 const InputPassword = React.lazy(
-  () => import("@components/base/Input/InputPassword"),
+  () => import("@components/ui/Input/InputPassword"),
 );
 
 const SignIn = () => {

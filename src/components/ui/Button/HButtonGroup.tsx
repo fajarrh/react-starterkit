@@ -1,5 +1,5 @@
 import React from "react";
-import ButtonGroup from "@components/base/Button/ButtonGroup";
+import ButtonGroup from "@components/ui/Button/ButtonGroup";
 import { ButtonProps } from "@mui/material/Button";
 
 const AddIcon = React.lazy(() => import("@mui/icons-material/Add"));

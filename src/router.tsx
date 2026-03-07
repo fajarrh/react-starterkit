@@ -1,7 +1,7 @@
 
 import { createBrowserRouter } from "react-router";
 import { loader } from "@services/auth.service";
-import LoadComponent from "@components/base/LoadComponent/LoadComponent";
+import LoadComponent from "@components/ui/LoadComponent/LoadComponent";
 
 const AppLayouts = LoadComponent(() => import("@components/layouts/AppLayout"));
 const GuestLayout = LoadComponent(

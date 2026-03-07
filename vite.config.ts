@@ -28,6 +28,7 @@ export default defineConfig(({ mode }) => {
         "@schemas": path.resolve(__dirname, "./src/schemas"),
         "@typings": path.resolve(__dirname, "./src/typings"),
         "@reducers": path.resolve(__dirname, "./src/reducers"),
+        "@constants": path.resolve(__dirname, "./src/constants"),
         "@ignored": path.resolve(__dirname, "src/generate-template"),
       },
     },

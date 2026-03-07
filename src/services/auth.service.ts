@@ -1,5 +1,6 @@
 import { EventSend } from "ezhooks";
 import { LoaderFunction, redirect } from "react-router";
+import api from "./api.service";
 
 const baseUrl = import.meta.env.VITE_APP_BASE_API_URL;
 
@@ -33,64 +34,32 @@ export const loader: LoaderFunction = async () => {
   return resp.data;
 };
 
-export const postLogin = async (event: EventSend) => {
-  const res = await fetch(url.login, {
-    method: "post",
+export const postLogin = (event: EventSend) => {
+  return api.post(url.login, event.data?.(), {
     signal: event.ctr.signal,
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(event.data?.()),
   });
-
-  return await res.json();
 };
 
-export const postRegister = async (event: EventSend) => {
-  const res = await fetch(url.register, {
-    method: "post",
+export const postRegister = (event: EventSend) => {
+  return api.post(url.register, event.data?.(), {
     signal: event.ctr.signal,
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(event.data?.()),
   });
-
-  return res;
 };
 
 export const postVerificationEmail = async (event: EventSend) => {
-  const res = await fetch(url.verification, {
-    method: "post",
+  return api.post(url.verification, event.data?.(), {
     signal: event.ctr.signal,
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(event.data?.()),
   });
-
-  return res;
 };
 
-export const postResendCode = async (event: EventSend) => {
-  const res = await fetch(url.resend, {
-    method: "post",
+export const postResendCode = (event: EventSend) => {
+  return api.post(url.resend, event.data?.(), {
     signal: event.ctr.signal,
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(event.data?.()),
   });
-
-  return res;
 };
 
 export const postLogout = (event: EventSend) => {
-  return fetch(url.logout, {
-    method: "post",
+  return api.post(url.logout, event.data?.(), {
     signal: event.ctr?.signal,
-    headers: {
-      "content-type": "application/json",
-    },
   });
 };

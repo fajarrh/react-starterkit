@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import Loading from "@components/base/Skeleton/Spinner";
+import Loading from "@components/ui/Skeleton/Spinner";
 import Paper from "@mui/material/Paper";
 import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
@@ -17,7 +17,7 @@ import z from "@schemas/_schema.config";
 const TextField = React.lazy(() => import("@mui/material/TextField"));
 
 const InputPassword = React.lazy(
-  () => import("@components/base/Input/InputPassword")
+  () => import("@components/ui/Input/InputPassword")
 );
 
 const RegisterPage = () => {

@@ -1,11 +1,11 @@
-import ErrorBoundary from "@components/base/ErrorBoundary";
-import Snackbar from "@components/base/Snackbar";
+import ErrorBoundary from "@components/ui/ErrorBoundary";
+import Snackbar from "@components/ui/Snackbar";
 import SnackbarProvider from "@contexts/SnackbarContext";
 import Toolbar from "@mui/material/Toolbar";
 import { styled } from "@mui/material/styles";
 import { Outlet } from "react-router";
-import AlertDialog from "@components/base/Dialog/AlertDialog";
-import GuestHeader from "@components/base/Header/GuestHeader";
+import AlertDialog from "@components/ui/Dialog/AlertDialog";
+import GuestHeader from "@components/ui/Header/GuestHeader";
 
 const Wrapper = styled("div")({
   display: "flex",

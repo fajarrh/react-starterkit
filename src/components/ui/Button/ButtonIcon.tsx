@@ -1,4 +1,4 @@
-import LoadComponent from "@components/base/LoadComponent/LoadComponent";
+import LoadComponent from "@components/ui/LoadComponent/LoadComponent";
 import { SvgIconTypeMap } from "@mui/material/SvgIcon";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import { DefaultComponentProps } from "@mui/material/OverridableComponent";

@@ -1,5 +1,5 @@
 import React from "react";
-import { SnackProps } from "@components/base/Snackbar";
+import { SnackProps } from "@components/ui/Snackbar";
 
 const SnackbarContext = React.createContext({
   snackbar: {} as SnackProps,

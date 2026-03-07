@@ -1,10 +1,10 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import LoadComponent from "@components/base/LoadComponent/LoadComponent";
+import LoadComponent from "@components/ui/LoadComponent/LoadComponent";
 import IconButton from "@mui/material/IconButton";
-import ButtonWithIcon from "@components/base/Button/ButtonWithIcon";
-import Breadcrumbs from "@components/base/Breadcrumbs";
+import ButtonWithIcon from "@components/ui/Button/ButtonWithIcon";
+import Breadcrumbs from "@components/ui/Breadcrumbs";
 
 type Props = {
   title?: string;

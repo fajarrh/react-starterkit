@@ -1,4 +1,4 @@
-import TableValue from "@components/base/Table/TableValue";
+import TableValue from "@components/ui/Table/TableValue";
 import { TableCellProps } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";

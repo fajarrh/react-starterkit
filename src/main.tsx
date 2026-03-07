@@ -4,7 +4,6 @@ import { StrictMode } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppProvider from "@contexts/AppContext";
 import AuthProvider from "@contexts/AuthContext";
-import interceptor from "@utils/interceptor";
 import router from "./router";
 import defaultTheme from "@themes/defaultTheme";
 import { RouterProvider } from "react-router/dom";
@@ -23,6 +22,3 @@ createRoot(document.getElementById("root")).render(
     </ThemeProvider>
   </StrictMode>
 );
-
-const { fetch: watch } = window;
-window.fetch = interceptor(watch);

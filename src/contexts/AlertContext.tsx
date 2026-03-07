@@ -1,4 +1,4 @@
-import { AlertModel } from "@components/base/Dialog/AlertDialog";
+import { AlertModel } from "@components/ui/Dialog/AlertDialog";
 import { createContext, useContext, useReducer } from "react";
 
 const initialState: AlertModel = {

@@ -40,7 +40,8 @@
       "@schemas/*": ["src/schemas/*"],
       "@commons/*": ["src/commons/*"],
       "@typings/*": ["src/typings/*"],
-      "@reducers/*": ["src/reducers/*"]
+      "@reducers/*": ["src/reducers/*"],
+      "@constants/*": ["src/constants/*"]
     }
   },
   "include": ["src", "vite.config.ts"]
