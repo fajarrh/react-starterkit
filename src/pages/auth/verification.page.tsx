@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import useMutation from "ezhooks/lib/useMutation";
-import useZod from "@hooks/useZod";
+import useZod from "@hooks/use-zod";
 import { useLocation, useNavigate } from "react-router";
 import { postResendCode, postVerificationEmail } from "@services/auth.service";
 import Alert from "@mui/material/Alert";
@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import ListItemText from "@mui/material/ListItemText";
 import Fade from "@mui/material/Fade";
-import useParseError from "@hooks/useParseError";
+import useParseError from "@hooks/use-parse-error";
 import { formatCountdown } from "@utils/string";
 import { useSnackbar } from "@contexts/SnackbarContext";
 import z from "@schemas/_schema.config";

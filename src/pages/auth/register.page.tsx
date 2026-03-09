@@ -8,10 +8,10 @@ import Alert from "@mui/material/Alert";
 import Fade from "@mui/material/Fade";
 
 import useMutation from "ezhooks/lib/useMutation";
-import useZod from "@hooks/useZod";
+import useZod from "@hooks/use-zod";
 import { postRegister } from "@services/auth.service";
 import { useNavigate } from "react-router";
-import useParseError from "@hooks/useParseError";
+import useParseError from "@hooks/use-parse-error";
 import z from "@schemas/_schema.config";
 
 const TextField = React.lazy(() => import("@mui/material/TextField"));
@@ -56,14 +56,11 @@ const RegisterPage = () => {
     if (valid) {
       form.send({
         service: postRegister,
-        onSuccess: async (resp) => {
-          if (resp.status === 201) {
-            const res = await resp.json();
+        onSuccess:  (resp) => {
             setSuccess(true);
             navigate(`/verification`, {
-              state: { email: res.data.email },
+              state: { email: resp.data.email },
             });
-          }
           form.reset();
         },
         onError: (e) => {

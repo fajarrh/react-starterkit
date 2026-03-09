@@ -126,11 +126,11 @@ export default class ApiClient {
 
   // ─── HTTP Methods ─────────────────────────────────────────────────────────
 
-  get<T = unknown>(endpoint: string, init?: RequestInit & { params?: Record<string, unknown> }) {
+  get<T = any>(endpoint: string, init?: RequestInit & { params?: Record<string, unknown> }) {
     return this.request<T>(endpoint, { ...init, method: "GET" });
   }
 
-  post<T = unknown>(endpoint: string, body?: unknown, init?: RequestInit & { params?: Record<string, unknown> }) {
+  post<T = any>(endpoint: string, body?: unknown, init?: RequestInit & { params?: Record<string, unknown> }) {
     return this.request<T>(endpoint, {
       ...init,
       method: "POST",
@@ -138,7 +138,7 @@ export default class ApiClient {
     });
   }
 
-  put<T = unknown>(endpoint: string, body?: unknown, init?: RequestInit & { params?: Record<string, unknown> }) {
+  put<T = any>(endpoint: string, body?: unknown, init?: RequestInit & { params?: Record<string, unknown> }) {
     return this.request<T>(endpoint, {
       ...init,
       method: "PUT",
@@ -146,7 +146,7 @@ export default class ApiClient {
     });
   }
 
-  patch<T = unknown>(endpoint: string, body?: unknown, init?: RequestInit & { params?: Record<string, unknown> }) {
+  patch<T = any>(endpoint: string, body?: unknown, init?: RequestInit & { params?: Record<string, unknown> }) {
     return this.request<T>(endpoint, {
       ...init,
       method: "PATCH",
@@ -154,7 +154,7 @@ export default class ApiClient {
     });
   }
 
-  delete<T = unknown>(endpoint: string, init?: RequestInit & { params?: Record<string, unknown> }) {
+  delete<T = any>(endpoint: string, init?: RequestInit & { params?: Record<string, unknown> }) {
     return this.request<T>(endpoint, { ...init, method: "DELETE" });
   }
 }

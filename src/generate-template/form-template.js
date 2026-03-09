@@ -87,7 +87,7 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 ${importSelect}
-import { UseZod } from "@hooks/useZod";
+import { UseZod } from "@hooks/use-zod";
 import { UseMutation } from "ezhooks/lib/useMutation";
 ${importFile}
 

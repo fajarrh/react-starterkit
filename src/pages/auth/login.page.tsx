@@ -8,7 +8,7 @@ import ThemeProvider from "@mui/system/ThemeProvider";
 import defaultTheme from "@themes/defaultTheme";
 import useMutation from "ezhooks/lib/useMutation";
 import { postLogin } from "@services/auth.service";
-import useZod from "@hooks/useZod";
+import useZod from "@hooks/use-zod";
 import { useAuth } from "@contexts/AuthContext";
 import { useNavigate } from "react-router";
 
@@ -54,8 +54,8 @@ const SignIn = () => {
         service: postLogin,
         onSuccess: ({ data }) => {
           auth.setLogin(true);
-          auth.setUser(data.user as Me);
-          auth.setToken(data.token as string);
+          auth.setUser(data.user);
+          auth.setToken(data.token);
           navigate("/", { replace: true });
         },
       });

@@ -21,7 +21,7 @@ import Box from "@mui/material/Box";
 import Form from "./partial/Form";
 import Toolbar from "@mui/material/Toolbar";
 import useMutation from "ezhooks/lib/useMutation";
-import useZod from "@hooks/useZod";
+import useZod from "@hooks/use-zod";
 import { input${funcName}Schema } from "@schemas/${schemaFileName}";
 import { put${funcName}, get${funcName}ID } from "@services/${serviceName}";
 import { useNavigate, useParams } from "react-router";
