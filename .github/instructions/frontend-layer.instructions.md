@@ -8,6 +8,43 @@ These rules apply whenever you create or edit files in `src/`. Always read the r
 
 ---
 
+## File Naming Convention
+
+Rules:
+- **Default format**: All file and folder names must use kebab-case (lowercase with hyphens): `user-profile.service.ts`, `auth-context.tsx`, `error-handler.utils.ts`
+- **Component exception**: Files inside `src/components/` must use PascalCase: `UserProfile.tsx`, `DataTable.tsx`, `ErrorDialog.tsx`
+- **Consistency**: Stick to the naming pattern within each directory type
+- **Extensions**: Use `.tsx` for React components, `.ts` for TypeScript files, `.js` for plain JavaScript (avoid mixing)
+- **Descriptive names**: File names should clearly indicate their purpose and type: `user.service.ts`, `auth.constant.ts`, `date.utils.ts`
+
+---
+
+## Modal and Dialog Patterns
+
+Rules:
+- **Router-based modals**: Implement modals as route-based components using React Router outlets instead of state-managed overlays
+- **URL accessibility**: Each modal/dialog should have its own route path for direct access and browser history support
+- **Nested routing**: Use nested routes with outlets for modal workflows within existing pages
+- **Route structure**: Follow RESTful patterns for modal routes (create, edit, view actions as child routes)
+- **Navigation handling**: Handle modal close via router navigation, not local state management
+- **Deep linking**: Ensure modals can be opened directly via URL and maintain state on page refresh
+- **Parent-child relationship**: Modal routes should be children of their parent page routes using outlet pattern
+
+---
+
+## Component Development Approach
+
+Rules:
+- **UX-first development**: Always design and implement the user experience flow before building the visual interface
+- **Behavior before appearance**: Focus on component logic, data flow, and user interactions before styling
+- **Progressive enhancement**: Start with functional components, then add visual polish and animations
+- **Accessibility priority**: Built-in accessibility features during UX phase, not as an afterthought
+- **State management design**: Plan component state and data flow during UX phase
+- **User journey mapping**: Consider how the component fits into overall user workflows before implementation
+- **Responsive thinking**: Plan mobile and desktop experiences during UX phase, not during UI refinement
+
+---
+
 ## Service Layer (`src/services/`)
 
 **Read this file to understand the pattern:** `src/services/auth.service.ts`
@@ -185,3 +222,37 @@ Rules:
 - Components receive data through props — never import services or call `api.*` inside components.
 - Lazy-load heavy MUI components with `React.lazy` or `LoadComponent` — see `login.page.tsx` for example.
 - MUI imports are always deep imports: `import Button from "@mui/material/Button"` not `import { Button } from "@mui/material"`.
+
+---
+
+## Constants Layer (`src/constants/`)
+
+Rules:
+- **Organization by type**: Group constants by their purpose, not by domain (organize by status, messages, alerts vs auth, user, product).
+- **No hardcoded values**: All strings, numbers, enums, status codes, color values, and lookup arrays must be defined in constants files, never inline in components or pages.
+- **English naming**: Use English for all constant names and default values for consistency, regardless of target language.
+- **Typed exports**: Always export both the constant object and its TypeScript type using `as const` and `typeof` patterns.
+- **Structured lookups**: For data that needs searching/filtering, use array of objects with consistent properties like `id`, `label`, `value`, `type`.
+- **Enum-like objects**: Use object literals with `as const` instead of TypeScript enums for better tree-shaking and type inference.
+- **Filename pattern**: Use `{purpose}.constant.ts` naming (http-status, alert, message, common, etc.)
+
+---
+
+## Utilities Layer (`src/utils/`)
+
+Rules:
+- **No direct indexing**: Components must never access array/object data directly via indexing, `.find()`, `.at()`, or bracket notation. Always use utility functions.
+- **Naming convention**: Use `get{Type}By{Property}` pattern for lookup functions (getStatusByCode, getColorByType, getMessageByKey).
+- **Safe fallbacks**: All utility functions must provide default/fallback values via optional parameters, never return undefined or throw errors.
+- **Pure functions**: Utilities should be stateless, take simple parameters, and return predictable results.
+- **Import constants**: Utility files must import data from `@constants/*`, never define data arrays/objects locally within utility files.
+- **Group by domain**: Create focused utility files per functional area (status, alert, message, date, validation, etc.).
+- **Consistent return types**: Functions returning the same type of data should have consistent signatures and fallback patterns.
+- **Parameter validation**: Handle invalid inputs gracefully by returning sensible defaults rather than breaking.
+
+### Utility Function Patterns:
+- **Simple lookup**: Function takes identifier, returns value with fallback
+- **Type conversion**: Function takes raw input, returns typed/validated output  
+- **Status checking**: Function takes state, returns boolean or status enum
+- **Message formatting**: Function takes key/template, returns formatted string
+- **Safe access**: Function replaces direct array/object access with error handling
