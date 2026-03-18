@@ -55,7 +55,7 @@ const FilterCell = ({
             }}
             sx={{
               "& .MuiOutlinedInput-notchedOutline": {
-                borderColor: "transparent",
+                borderColor: "transparent !important",
                 borderRadius: 0,
               },
               m: 0,
@@ -82,7 +82,7 @@ const FilterCell = ({
           sx={{
             m: 0,
             "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "transparent",
+              borderColor: "transparent !important",
               borderRadius: 0,
             },
           }}

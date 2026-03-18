@@ -16,14 +16,14 @@ import {
   TableCellProps,
 } from "@mui/material/TableCell";
 import { TextFieldProps } from "@mui/material/TextField";
+import Box, { BoxProps } from "@mui/material/Box";
 import { FilterCellProps } from "./FilterCell";
 import FilterRow from "./FilterRow";
-import * as use from "@utils/array"
-import Toolbar from "@mui/material/Toolbar";
+import * as use from "@utils/array";
 import LoadComponent from "../LoadComponent/LoadComponent";
 
 const TablePagination = LoadComponent(
-  () => import("@mui/material/TablePagination")
+  () => import("@mui/material/TablePagination"),
 );
 
 export type ColumnProps<T> = CellProps & {
@@ -37,6 +37,7 @@ export interface DataTablePageProps<T> extends Omit<HeadRowProps, "column"> {
   hover?: boolean;
   pagination?: TablePaginationProps;
   container?: TableContainerProps;
+  wrapperProps?: BoxProps;
   row?: TableRowProps;
   filterOptions?: TextFieldProps;
   tableProps?: TableProps;
@@ -47,7 +48,7 @@ export interface DataTablePageProps<T> extends Omit<HeadRowProps, "column"> {
   emptyCellText?: string;
   responsive?: boolean;
   renderSmallView?: (
-    value: T
+    value: T,
   ) => TableCellProps & { headProps?: TableCellProps };
   selected?: (value: T) => boolean;
 }
@@ -70,6 +71,7 @@ const DataTablePage = <T=any,>({
   hover,
   container,
   row,
+  wrapperProps,
   headRowProps,
   tableProps,
   filterOptions,
@@ -79,131 +81,141 @@ const DataTablePage = <T=any,>({
   const cdata = React.useMemo(
     () =>
       column.map((value) =>
-        use.omit(value, ["head", "label", "sortKey", "filter"])
+        use.omit(value, ["head", "label", "sortKey", "filter"]),
       ),
-    [column, data]
+    [column, data],
   );
 
   const cfilter = React.useMemo(
     () => column.map((value) => value.filter),
-    [column, data]
+    [column, data],
   );
 
   const chead = React.useMemo(
-    () =>
-      column.map((value) => use.pick(value, ["label", "sortKey", "head"])),
-    [column, data]
+    () => column.map((value) => use.pick(value, ["label", "sortKey", "head"])),
+    [column, data],
   );
 
   return (
-    <TableContainer
-      {...container}
+    <Box
+      {...use.omit(wrapperProps ?? {}, ["sx"])}
       sx={{
-        flexGrow: 1,
-        position: "relative",
-        height: "100vh",
-        ...(container && container.sx ? { ...container.sx } : undefined),
+        display: "flex",
+        flexDirection: "column",
+        height: "100%", 
+        minHeight: 0,
+        width: "100%",
+        ...wrapperProps?.sx,
       }}
     >
-      <Table
-        stickyHeader
-        {...tableProps}
+      <TableContainer
+        {...use.omit(container, ["sx"])}
         sx={{
-          "& thead > tr > th": {
-            backgroundColor: "#f5f5f5",
-            whiteSpace: "nowrap",
-          },
-          "& tbody > tr": {
-            opacity: 0,
-            animation: "fadein 1s forwards",
-          },
-          "@keyframes fadein": {
-            to: {
-              opacity: 1,
-            },
-          },
-          ...(tableProps && tableProps.sx ? { ...tableProps.sx } : undefined),
+          flex: 1,
+          overflowY: "auto",
+          minHeight: 0,
+          ...container?.sx,
         }}
       >
-        {responsive ? null : (
-          <TableHead sx={{ position: "sticky", top: 0, zIndex: 1 }}>
-            <HeadRow
-              order={order}
-              orderBy={orderBy}
-              column={chead}
-              onOrder={onOrder}
-              headRowProps={headRowProps}
-            />
-            {!!cfilter.length && cfilter.some((v) => v !== undefined) ? (
-              <FilterRow column={cfilter} filterOptions={filterOptions} />
-            ) : null}
-          </TableHead>
-        )}
-
-        <TableBody component={"tbody"}>
-          {loading ? (
-            <RowLoading count={responsive ? 1 : column.length} />
-          ) : data.length === 0 ? (
-            <TableRow>
-              <TableCell variant="body" colSpan={column.length} align="center">
-                {emptyText ?? "Data not available"}
-              </TableCell>
-            </TableRow>
-          ) : (
-            data.map((_data: T, i: number) =>
-              responsive ? (
-                <TableRow
-                  key={`row-${i}`}
-                  component="tr"
-                  hover={hover}
-                  selected={selected ? selected(_data) : undefined}
-                  style={{ animationDelay: `${i * 0.02}s` }}
-                  {...row}
-                >
-                  <TableCell
-                    {...use.omit(renderSmallView(_data), ["headProps"])}
-                  />
-                </TableRow>
-              ) : (
-                <TableRow
-                  key={`row-${i}`}
-                  component="tr"
-                  hover={hover}
-                  selected={selected ? selected(_data) : undefined}
-                  {...row}
-                >
-                  {cdata.map(({ value, noWrap, ...col }, j) => (
-                    <TableCell key={`row-${i}-cell-${j}`} {...col}>
-                      {value(_data, i) || emptyCellText || "N/A"}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              )
-            )
+        <Table
+          stickyHeader
+          {...tableProps}
+          sx={{
+            "& thead > tr:first-of-type > th": {
+              backgroundColor: "grey.200",
+              whiteSpace: "nowrap",
+            },
+            "& thead > tr:nth-of-type(2) > th": {
+              backgroundColor: "grey.100",
+              whiteSpace: "nowrap",
+            },
+            "& tbody > tr": {
+              opacity: 0,
+              animation: "fadein 1s forwards",
+            },
+            "& tbody > tr:last-of-type > td": {
+              borderBottom: 0,
+            },
+            "@keyframes fadein": {
+              to: {
+                opacity: 1,
+              },
+            },
+            ...(tableProps && tableProps.sx ? { ...tableProps.sx } : undefined),
+          }}
+        >
+          {responsive ? null : (
+            <TableHead sx={{ position: "sticky", top: 0, zIndex: 1 }}>
+              <HeadRow
+                order={order}
+                orderBy={orderBy}
+                column={chead}
+                onOrder={onOrder}
+                headRowProps={headRowProps}
+              />
+              {!!cfilter.length && cfilter.some((v) => v !== undefined) ? (
+                <FilterRow column={cfilter} filterOptions={filterOptions} />
+              ) : null}
+            </TableHead>
           )}
-        </TableBody>
-      </Table>
+
+          <TableBody component={"tbody"}>
+            {loading ? (
+              <RowLoading count={responsive ? 1 : column.length} />
+            ) : data.length === 0 ? (
+              <TableRow>
+                <TableCell
+                  variant="body"
+                  colSpan={column.length}
+                  align="center"
+                >
+                  {emptyText ?? "Data not available"}
+                </TableCell>
+              </TableRow>
+            ) : (
+              data.map((_data: T, i: number) =>
+                responsive ? (
+                  <TableRow
+                    key={`row-${i}`}
+                    component="tr"
+                    hover={hover}
+                    selected={selected ? selected(_data) : undefined}
+                    style={{ animationDelay: `${i * 0.02}s` }}
+                    {...row}
+                  >
+                    <TableCell
+                      {...use.omit(renderSmallView(_data), ["headProps"])}
+                    />
+                  </TableRow>
+                ) : (
+                  <TableRow
+                    key={`row-${i}`}
+                    component="tr"
+                    hover={hover}
+                    selected={selected ? selected(_data) : undefined}
+                    {...row}
+                  >
+                    {cdata.map(({ value, noWrap, ...col }, j) => (
+                      <TableCell key={`row-${i}-cell-${j}`} {...col}>
+                        {value(_data, i) || emptyCellText || "N/A"}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ),
+              )
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
       {pagination ? (
         <React.Suspense fallback={"loading..."}>
-          <TablePagination
-            component="div"
-            sx={{
-              width: "100%",
-              position: "fixed",
-              bottom: responsive ? "56px" : 0,
-              left: 0,
-              backgroundColor: "#f5f5f5",
-              zIndex: 1199,
-            }}
-            {...pagination}
-          />
+          <Box sx={{ flexShrink: 0, backgroundColor: "grey.200" }}>
+            <TablePagination component="div" {...pagination} />
+          </Box>
         </React.Suspense>
       ) : null}
-
-      <Toolbar />
-      <Toolbar />
-    </TableContainer>
+    </Box>
   );
 };
 
