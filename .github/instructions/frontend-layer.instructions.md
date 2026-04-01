@@ -19,6 +19,49 @@ Rules:
 
 ---
 
+## Variable Naming Convention
+
+Rules:
+- **Regular variables**: Use camelCase for variable names: `userId`, `userName`, `isLoading`, `hasPermission`
+- **Constants**: Use CAPITAL separator snake_case in the format `{CAPITAL}_{CAPITAL}` for constants: `USER_PROFILE`, `AUTH_TOKEN`, `DATA_TABLE`, `API_BASE_URL`, `MAX_RETRY_COUNT`
+- **Boolean variables**: Prefix with `is`, `has`, `can`, `should` using camelCase: `isLoading`, `hasPermission`, `canEdit`
+- **Consistency**: Maintain the same naming pattern throughout the codebase
+- **Descriptive naming**: Variable names should clearly indicate their purpose and data type
+
+---
+
+## Function Return Convention
+
+Rules:
+- **Always use explicit block body with `return`**: All functions — arrow functions, named functions, and callbacks — must use `{ return }` syntax. Never use concise implicit return (arrow function without braces).
+- **Applies to all function types**: This rule covers arrow functions, regular functions, callbacks, and service functions.
+
+  ```typescript
+  // ✓ correct — explicit block body
+  const getUser = (id: number) => {
+    return api.get<UserResponse>(`/users/${id}`);
+  };
+
+  const double = (n: number) => {
+    return n * 2;
+  };
+
+  const items = list.map((item) => {
+    return item.id;
+  });
+
+  // ✗ wrong — implicit return (no braces)
+  const getUser = (id: number) => api.get<UserResponse>(`/users/${id}`);
+
+  const double = (n: number) => n * 2;
+
+  const items = list.map((item) => item.id);
+  ```
+
+- **Exception — JSX in component render**: Component function bodies that return JSX may use the standard `return (...)` pattern inside a block body — this rule does not change how JSX is rendered, only prevents concise implicit returns.
+
+---
+
 ## Modal and Dialog Patterns
 
 Rules:
@@ -235,6 +278,52 @@ Rules:
 - **Structured lookups**: For data that needs searching/filtering, use array of objects with consistent properties like `id`, `label`, `value`, `type`.
 - **Enum-like objects**: Use object literals with `as const` instead of TypeScript enums for better tree-shaking and type inference.
 - **Filename pattern**: Use `{purpose}.constant.ts` naming (http-status, alert, message, common, etc.)
+- **Static data arrays**: Any data that is static and does not change at runtime (e.g. option lists, status lists, dropdown data, label maps, color maps) must be defined in `src/constants/`, **never inline in components, pages, or utility files**. Name using CAPITAL_CAPITAL convention, declare with `as const`, and export the inferred TypeScript type using `typeof`.
+- **Enum constant pattern**: Every domain with an enum or lookup type **must** co-locate its related constants in the same constants file as the enum/type:
+  - `{DOMAIN}_LABEL: Record<EnumType, string>` — human-readable labels for each value
+  - `{DOMAIN}_OPTIONS: Array<{ primary: string; value: EnumType }>` — ready-to-use options for selects/dropdowns
+  - Utility functions in `src/utils/` are **only** thin getter wrappers that import from constants — **never** define arrays or objects inside utility files
+- **Status constant pattern**: Every domain with a status enum **must** define three constants and two utility functions:
+  - `{DOMAIN}_STATUS_LABEL: Record<Status, string>` → in `label.constant.ts`
+  - `{DOMAIN}_STATUS_COLOR: Record<Status, string>` → in `color.constant.ts`
+  - `{DOMAIN}_STATUS_OPTIONS: Array<{ primary: string; value: Status }>` → in `status.constant.ts`
+  - `get{Domain}StatusLabel(status)` → in `label.utils.ts`
+  - `get{Domain}ColorByStatus(status)` → in `color.utils.ts`
+
+  Never define status label maps, color maps, or options arrays inline inside pages or components.
+
+---
+
+## Commons Layer (`src/commons/`)
+
+**File:** `src/commons/dummy.ts`
+
+Rules:
+- **Single file for all dummy data**: All default values, fallback objects, and placeholder data must be placed in `src/commons/dummy.ts` — never inline in pages, components, hooks, or services.
+- **Default/initial form values**: Any object used as `defaultValue`, `initialValue`, or initial state for `useMutation`/`useZod` must be defined in `dummy.ts` and imported via `@commons/dummy`.
+- **Naming convention**: Use the prefix `default` followed by PascalCase model name: `defaultUser`, `defaultProduct`, `defaultInputProduct`.
+- **Typed with schema**: Dummy objects must be typed using the inferred schema type or domain type:
+  ```typescript
+  import type { InputProductSchema } from "@schemas/product.schema";
+
+  export const defaultInputProduct: InputProductSchema = {
+    name: "",
+    price: 0,
+    stock: 0,
+  };
+  ```
+- **No logic**: `dummy.ts` contains only plain object/array literals — no functions, no imports from services or utils.
+- **Import alias**: Always import from `@commons/dummy`, never via relative path (except within the same folder).
+- **Usage in pages**: Pass dummy values as `defaultValue` to `useMutation` or as the initial data seed — never define bare object literals inline in the component body.
+
+  ```typescript
+  // ✓ correct
+  import { defaultInputProduct } from "@commons/dummy";
+  const mutation = useMutation({ defaultValue: defaultInputProduct });
+
+  // ✗ wrong — inline object literal
+  const mutation = useMutation({ defaultValue: { name: "", price: 0 } });
+  ```
 
 ---
 
